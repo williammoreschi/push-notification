@@ -36,7 +36,7 @@ if(!empty($_POST['notificationSubmit'])){
       </div>
       <div >
          <label>Message</label>
-         <input type="text" placeholder="Message" name="msg">
+         <textarea placeholder="Message" name="msg"></textarea>
       </div>
       <div >
          <label>Logo</label>

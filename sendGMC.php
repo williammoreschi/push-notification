@@ -3,7 +3,7 @@ function sendGCM($fields) {
   $url = 'https://fcm.googleapis.com/fcm/send';
   $fields = json_encode ($fields);
   $headers = array (
-    'Authorization: key=Your_Authorization_Key',
+    'Authorization: key=AIzaSyADrg86N0MgjhxYrOA5LzYmvqZIMiS13jw',
    'Content-Type: application/json'
   );
   $ch = curl_init ();

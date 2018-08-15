@@ -4,9 +4,28 @@
 <title>Push Demo</title>
 <link rel="manifest" href="manifest.json">
 </head>
+<style type="text/css">
+*{
+	padding: 0px;
+	margin: 0;
+}
+	.error p,
+	.error span{
+		display: block;
+		width: 100%;
+		padding: 10px;
+	}
+	.error p{
+		background: #ffb2b2
+	}
+	.error span{
+		background: #ffe7b2
+	}
+</style>
 <body>
 <div id="container">
-<div class="desc"> </div>
+<div class="desc"></div>
+<div class="error"></div>
 <button class="pushButton" >
    Subscribe
 </button>

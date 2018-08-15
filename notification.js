@@ -1,6 +1,7 @@
 var isPushEnabled = false;
 var pushButton = document.querySelector(".pushButton");
 var desc = document.querySelector(".desc");
+var desc_error = document.querySelector(".error");
 var disableText = "Unsubscribe";
 var enableText = "Subscribe";
 var disableDesc = "Thank you message";
@@ -19,23 +20,43 @@ function serviceWorkerCall() {
 		navigator.serviceWorker.register(window.location.href+"service-worker.js")
 		.then(initialiseState);
 	} else {
-		console.warn("Service workers aren't supported in this browser.");
+		var text = "Service workers aren't supported in this browser.";
+		console.warn(text);
+		var node = document.createElement("span");
+		var textnode = document.createTextNode(text);
+		node.appendChild(textnode);
+		desc_error.appendChild(node);
 	}
 }
 
 function initialiseState() {
 	if (!("showNotification" in ServiceWorkerRegistration.prototype)) {
-		console.log("Notifications aren't supported.");
+		var text = "Notifications aren't supported.";
+		var node = document.createElement("p");
+		var textnode = document.createTextNode(text);
+		node.appendChild(textnode);
+		desc_error.appendChild(node);
+		console.log(text);
 		return;
 	}
 
 	if (Notification.permission === "denied") {
-		console.log("The user has blocked notifications.");
+		var text = "The user has blocked notifications.";
+		var node = document.createElement("p");
+		var textnode = document.createTextNode(text);
+		node.appendChild(textnode);
+		desc_error.appendChild(node);
+		console.log(text);
 		return;
 	}
 
 	if (!("PushManager" in window)) {
-		console.log("Push messaging isn't supported.");
+		var text = "Push messaging isn't supported.";
+		var node = document.createElement("p");
+		var textnode = document.createTextNode(text);
+		node.appendChild(textnode);
+		desc_error.appendChild(node);
+		console.log(text);
 		return;
 	}
 
@@ -53,7 +74,12 @@ function initialiseState() {
 			desc.textContent = disableDesc;
 			isPushEnabled = true;
 		}).catch(function(e) {
-			console.log("Error during getSubscription()", e);
+			var text = "Error during getSubscription()";
+			var node = document.createElement("p");
+			var textnode = document.createTextNode(text+e);
+			node.appendChild(textnode);
+			desc_error.appendChild(node);
+			console.log(text, e);
 		});
 	});
 }
@@ -71,10 +97,22 @@ function subscribe() {
 			}
 		}).catch(function(e) {
 			if (Notification.permission === "denied") {
-				console.warn("Permission for Notification is denied");
+				var text = "Warn: Permission for Notification is denied";
+				var node = document.createElement("span");
+				var textnode = document.createTextNode(text);
+				node.appendChild(textnode);
+				desc_error.appendChild(node);
+				console.warn(text);
+
 				pushButton.disabled = true;
 			} else {
-				console.error("Unable to subscribe to push", e);
+				var text = "Error: Unable to subscribe to push";
+				var node = document.createElement("p");
+				var textnode = document.createTextNode(text+e);
+				node.appendChild(textnode);
+				desc_error.appendChild(node);
+				console.error(text, e);
+
 				pushButton.disabled = true;
 				pushButton.textContent = "Enable Push Messages";
 			}
@@ -107,7 +145,13 @@ function unsubscribe() {
 				isPushEnabled = false;
 			})
 			.catch(function(e) {
-				console.error("Error thrown while unsbscribing from push messaging.");
+
+				var text = "Error: thrown while unsbscribing from push messaging.";
+				var node = document.createElement("p");
+				var textnode = document.createTextNode(text);
+				node.appendChild(textnode);
+				desc_error.appendChild(node);
+				console.error(text);
 			});
 		});
 	});

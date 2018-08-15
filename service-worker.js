@@ -2,7 +2,7 @@ var self = this;
 var urlMain;
 self.addEventListener("push", function(event) {
    event.waitUntil(
-      fetch(window.location.href+"api.php?funcao=getNotification", {
+      fetch("https://localhost/www/push-notification/api.php?funcao=getNotification", {
       method: "get"
    })
   .then(function(response) {
