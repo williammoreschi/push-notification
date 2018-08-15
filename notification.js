@@ -119,7 +119,7 @@ function sendSubscriptionToServer(subscription) {
 	var temp = subscription.endpoint.split("/");
 	var registration_id = temp[temp.length - 1];
 	fetch(
-		"http://localhost/www/Push-Notifications-for-Web-Browsers/api.php?funcao=insertGCM&dado="+registration_id,
+		window.location.href+"api.php?funcao=insertGCM&dado="+registration_id,
 		{
 			method: "get"
 		}
@@ -129,7 +129,7 @@ function sendSubscriptionToServer(subscription) {
 	}
 
 	function deleteSubscriptionToServer(rid) {
-		fetch("http://localhost/www/Push-Notifications-for-Web-Browsers/api.php/deleteGCM?funcao=insertGCM&dado="+rid,{
+		fetch(window.location.href+"api.php/deleteGCM?funcao=insertGCM&dado="+rid,{
 			method: "get"
 		}).then(function(response) {
 			return response.json();
